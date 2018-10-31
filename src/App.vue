@@ -16,12 +16,28 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  background-color: #f0efe9;
+  padding: 0;
+  margin: 0;
+}
+
 #app {
   font-family: 'GothamRounded', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.2;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #3e434f;
+  background-color: #fff;
+  box-shadow: 0px 6px 15px 0px rgba(207, 211, 218, 0.35);
+  position: relative;
+  width: 320px;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 200px;
+  padding: 50px;
 }
 </style>
