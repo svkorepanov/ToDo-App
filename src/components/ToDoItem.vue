@@ -1,13 +1,15 @@
 <template>
-	<li class="todo-list__item"
-		:class="{'todo-list__item--checked' : this.todo.completed}"
-	>
-		<span class="todo-list__item-title">{{ todo.title | capitalize }}</span>
-		<button type="button" class="todo-list__check"
-			@click="onCheckClick"
-			:class="{'todo-list__check--checked': this.todo.completed}"
-		></button>
-	</li>
+	<transition name="todo-list__item">
+		<li class="todo-list__item"
+			:class="{'todo-list__item--checked' : this.todo.completed}"
+		>
+			<span class="todo-list__item-title">{{ todo.title | capitalize }}</span>
+			<button type="button" class="todo-list__check"
+				@click="onCheckClick"
+				:class="{'todo-list__check--checked': this.todo.completed}"
+			></button>
+		</li>
+	</transition>
 </template>
 
 <script>
@@ -34,6 +36,21 @@ export default {
 </script>
 
 <style lang="scss">
+// vue transition
+.todo-list__item {
+	&-enter-active,
+	&-leave-active {
+		transition: opacity .3s ease-out;
+	}
+
+	&-enter,
+	&-leave-to {
+		opacity: 0;
+	}
+}
+
+// vue transition end
+
 	.todo-list__item {
 		display: flex;
 		justify-content: space-between;
@@ -70,7 +87,7 @@ export default {
 
 		&--checked {
 			border-color: #50e3a4;
-			background-image: url('../assets/checked.png');
+			background-image: url('./../assets/checked.png');
 			background-repeat: no-repeat;
 			background-position: 50% 50%;
 			background-size: 80%;

@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<ul v-if="todos.length" class="todo-list">
+		<ul
+			v-if="todos.length"
+			class="todo-list"
+		>
 			<ToDoItem 
 				v-for="todo in todos" 
 				:key="todo.id"
@@ -77,13 +80,32 @@ export default {
 
 <style lang="scss">
 // vue transition
-	.new-task-enter, .new-task-leave-to {
-		opacity: 0;
+	.new-task {
+		&-enter-active,
+		&-leave-active {
+			transition: opacity 0.4s ease-in-out;
+		}
+
+		&-enter,
+		&-leave-to {
+			opacity: 0;
+		}
 	}
 
-	.new-task-enter-active, .new-task-leave-active {
-		transition: opacity 0.4s ease-in-out;
+	.todo-list {
+		&-enter-active,
+		&-leave-active {
+			transition: all 1.3s ease-in-out;
+		}
+
+		&-enter,
+		&-leave-to {
+			opacity: 0;
+			transform: translateX(-100px);
+		}
 	}
+
+// vue transition end
 	.todo-list {
 		margin: 0;
 		padding: 0;

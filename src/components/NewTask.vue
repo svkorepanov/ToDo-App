@@ -51,7 +51,7 @@ export default {
 	},
 	methods: {
 		onSubmitClick() {
-			if (this.newTask.length < 6) {
+			if (this.newTask.length < 5) {
 				this.errorMsg = "Task should contain at least 5 characters";
 				this.isError = true;
 				return ;
@@ -76,17 +76,21 @@ export default {
 </script>
 <style lang="scss">
 // vue transition
-	.error-enter-active {
-		transition: transform 0.4s cubic-bezier(.17,.89,.32,1.28);
+	.error {
+		&-enter-active {
+			transition: transform 0.6s ease-out;
+		}
+		&-leave-active {
+			transition: transform 0.4s ease-in;
+		}
+		&-enter,
+		&-leave-to {
+			transform: translateY(-100px)
+		}
 	}
 
-	.error-leave-active {
-		transition: transform 0.2s ease-out;
-	}
 
-	.error-enter, .error-leave-to {
-		transform: translateY(-100px)
-	}
+// vue transition end
 
 	.add-task__header {
 		margin-bottom: 60px;

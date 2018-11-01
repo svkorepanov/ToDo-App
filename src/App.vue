@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 body {
   position: relative;
   background-color: #f0efe9;
@@ -54,5 +55,7 @@ body {
   margin-right: auto;
   margin-bottom: 200px;
   padding: 50px;
+  max-height: 999999px;
+  transition: max-height 2.5s ease-out;
 }
 </style>
