@@ -8,13 +8,26 @@
 				<input class="add-task__input" type="text" name="task-name" id="">
 				<button class="add-task__submit" type="submit">Ok</button>
 			</form>
+			<button class="add-task__close" type="button"
+				@click="$emit('closeModal')"
+			>
+				<IconClose
+					width="40"
+					height="40"
+					class="add-task__close-img"
+				/>
+			</button>
 		</div>
 	</div>
 </template>
 
 <script>
+import IconClose from "./icons/IconClose.vue";
+
 export default {
-	
+	components: {
+		IconClose
+	}
 }
 </script>
 
@@ -24,18 +37,48 @@ export default {
 	}
 
 	.add-task {
-		position: fixed;
+		position: relative;
+		margin: auto;
 		width: 420px;
 		padding: 50px;
 		padding-bottom: 40px;
-		top: 50%;
-		left: 50%;
-		margin-left: -210px;
 		background-color: #fff;
 		z-index: 11;
 	}
 
+	.add-task__close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		border: none;
+		background: transparent;
+		outline: none;
+		cursor: pointer;
+		transform-origin: 50% 50%;
+
+		&:hover {
+
+			.add-task__close-img {
+				transform: rotate(180deg);
+				fill: #000;
+			}
+		}
+		
+
+		&:active .add-task__close-img{
+			fill: transparentize($color: #000000, $amount: 0.6)
+		}
+	}
+
+	.add-task__close-img {
+		fill: #eef0f5;
+		transition: 
+			transform 0.4s ease-out,
+			fill 0.1s ease-in;
+	}
+
 	.add-task__overlay {
+		display: flex;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -50,6 +93,7 @@ export default {
 		display: block;
 		border-bottom: 3px solid #eef0f5;
 		width: 100%;
+		padding: 0 5px;
 		margin-bottom: 30px;
 		font-family: inherit;
 		font-size: inherit;
@@ -70,9 +114,16 @@ export default {
 		color: #fff;
 		font: inherit;
 		cursor: pointer;
+		transition: all 0.1s ease-out;
+		outline: none;
 
 		&:hover {
-			
+			transform: translateY(-3px);
+			box-shadow: 0 6px 10px 0 rgba(62, 192, 136, 0.8);
+		}
+
+		&:active {
+			box-shadow: 0 3px 10px 0 rgba(62, 192, 136, 0.8);
 		}
 	}
 </style>

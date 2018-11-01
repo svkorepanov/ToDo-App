@@ -8,10 +8,11 @@
 			/>
 		</ul>
 		<a href="" class="todo-list__add-item"
-			@click.prevent=""
+			@click.prevent="isNewTask = true"
 		>+</a>
 		<NewTask 
 			v-show="isNewTask"
+			@closeModal="isNewTask = false"
 		/>
 	</div>
 </template>
@@ -30,7 +31,7 @@ export default {
 			todos: [],
 			GET_URL: 'https://jsonplaceholder.typicode.com/users/1/todos',
 			POST_URL: 'https://jsonplaceholder.typicode.com/todos',
-			isNewTask: true
+			isNewTask: false
 		}
 	},
   created : function () {
