@@ -25,6 +25,11 @@ body {
 
 * {
   box-sizing: border-box;
+  outline: none;
+  
+  &:focus {
+    box-shadow: 0 0 10px 3px rgba(255, 166, 131, 0.7);
+  }
 
   &::after,
   &::before {

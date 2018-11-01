@@ -2,7 +2,7 @@
 	<li class="todo-list__item"
 		:class="{'todo-list__item--checked' : this.todo.completed}"
 	>
-		{{ todo.title | capitalize }}
+		<span class="todo-list__item-title">{{ todo.title | capitalize }}</span>
 		<button type="button" class="todo-list__check"
 			@click="onCheckClick"
 			:class="{'todo-list__check--checked': this.todo.completed}"
@@ -48,6 +48,10 @@ export default {
 		}
 	}
 
+	.todo-list__item-title {
+		padding-right: 10px;
+	}
+
 	.todo-list__check {
 		width: 30px;
 		height: 30px;
@@ -61,6 +65,7 @@ export default {
 
 		&:hover {
 			transform: scale(1.2);
+			border-color: transparentize($color: #50e3a4, $amount: 0.5);
 		}
 
 		&--checked {

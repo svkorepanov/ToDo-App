@@ -4,8 +4,14 @@
 			<header class="add-task__header">
 				<p class="add-task__action">Add New Task</p>
 			</header>
-			<form>
-				<input class="add-task__input" type="text" name="task-name" id="">
+			<form
+				@submit.prevent="onSubmitClick"
+			>
+				<input ref="taskInput" class="add-task__input" type="text" name="task-name"
+					v-model="newTask"
+					@input="isError = false"
+					:class="{'add-task__input--error': (newTask.length < 5 || newTask.length > 50)}"
+				>
 				<button class="add-task__submit" type="submit">Ok</button>
 			</form>
 			<button class="add-task__close" type="button"
@@ -18,20 +24,70 @@
 				/>
 			</button>
 		</div>
+		<transition name="error">
+			<ErrorMsg 
+				v-if="isError"
+				:msg="errorMsg"
+			/>
+		</transition>
 	</div>
 </template>
 
 <script>
-import IconClose from "./icons/IconClose.vue";
+import IconClose from './icons/IconClose.vue';
+import ErrorMsg from './ErrorMsg.vue';
 
 export default {
 	components: {
-		IconClose
+		IconClose,
+		ErrorMsg
+	},
+	data: function () {
+		return {
+			newTask: '',
+			errorMsg: '',
+			isError: false
+		}
+	},
+	methods: {
+		onSubmitClick() {
+			if (this.newTask.length < 6) {
+				this.errorMsg = "Task should contain at least 5 characters";
+				this.isError = true;
+				return ;
+			}
+			if (this.newTask.length > 50) {
+				this.errorMsg = "Task can't contain more than 50 carachters";
+				this.isError = true;
+				return ;
+			}
+			this.$emit('addNewTask', this.newTask);
+			this.errorMsg = "";
+			this.isError = false;
+		}
+	},
+	mounted: function () {
+		this.$nextTick(function () {
+			console.dir(this.$refs.taskInput)
+			this.$refs.taskInput.focus();
+		})
 	}
 }
 </script>
-
 <style lang="scss">
+// vue transition
+	.error-enter-active {
+		transition: transform 0.4s cubic-bezier(.17,.89,.32,1.28);
+	}
+
+	.error-leave-active {
+		transition: transform 0.2s ease-out;
+	}
+
+	.error-enter, .error-leave-to {
+		transform: translateY(-100px)
+	}
+
 	.add-task__header {
 		margin-bottom: 60px;
 	}
@@ -43,6 +99,7 @@ export default {
 		padding: 50px;
 		padding-bottom: 40px;
 		background-color: #fff;
+		box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.3);
 		z-index: 11;
 	}
 
@@ -56,16 +113,17 @@ export default {
 		cursor: pointer;
 		transform-origin: 50% 50%;
 
-		&:hover {
-
-			.add-task__close-img {
+		&:hover .add-task__close-img {
 				transform: rotate(180deg);
 				fill: #000;
-			}
 		}
 		
+		&:focus {
+			box-shadow: none;
+		}
 
-		&:active .add-task__close-img{
+		&:active .add-task__close-img,
+		&:focus .add-task__close-img {
 			fill: transparentize($color: #000000, $amount: 0.6)
 		}
 	}
@@ -100,7 +158,13 @@ export default {
 
 		&:focus {
 			border-bottom-color: rgba(80, 227, 163, 0.8);
+			box-shadow: none;
 			outline: none;
+		}
+
+		&--error,
+		&--error:focus {
+			border-bottom-color: rgba(255, 166, 131, 0.7);;
 		}
 	}
 

@@ -7,13 +7,16 @@
 				:todo="todo"
 			/>
 		</ul>
-		<a href="" class="todo-list__add-item"
+		<a href="#" class="todo-list__add-item"
 			@click.prevent="isNewTask = true"
 		>+</a>
-		<NewTask 
-			v-show="isNewTask"
-			@closeModal="isNewTask = false"
-		/>
+		<transition name="new-task">
+			<NewTask 
+				v-if="isNewTask"
+				@closeModal="isNewTask = false"
+				@addNewTask="onAddNewTask"
+			/>
+		</transition>
 	</div>
 </template>
 
@@ -34,6 +37,34 @@ export default {
 			isNewTask: false
 		}
 	},
+	methods: {
+		onAddNewTask(newTaskTitle) {
+			const newObj = {
+				userID: 1,
+				id: this.todos[this.todos.length - 1].id + 1,
+				title: newTaskTitle,
+				completed: false
+			};
+			const task = new FormData();
+			Object.entries(newObj).forEach((item) => {
+        task.append(...item);
+			});
+			fetch(this.POST_URL, {
+				method: 'POST',
+				body: task
+			})
+				.then(() => {
+					this.addTask(newObj);
+					this.isNewTask = false;
+				})
+				.catch(() => {
+					
+				})
+		},
+		addTask(task) {
+			this.todos.push(task);
+		}
+	},
   created : function () {
     const vm = this;
     fetch(this.GET_URL)
@@ -45,6 +76,14 @@ export default {
 </script>
 
 <style lang="scss">
+// vue transition
+	.new-task-enter, .new-task-leave-to {
+		opacity: 0;
+	}
+
+	.new-task-enter-active, .new-task-leave-active {
+		transition: opacity 0.4s ease-in-out;
+	}
 	.todo-list {
 		margin: 0;
 		padding: 0;
