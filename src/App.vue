@@ -17,9 +17,19 @@ export default {
 
 <style lang="scss">
 body {
+  position: relative;
   background-color: #f0efe9;
   padding: 0;
   margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+
+  &::after,
+  &::before {
+    box-sizing: inherit;
+  }
 }
 
 #app {
@@ -33,7 +43,7 @@ body {
   background-color: #fff;
   box-shadow: 0px 6px 15px 0px rgba(207, 211, 218, 0.35);
   position: relative;
-  width: 320px;
+  width: 420px;
   margin-top: 150px;
   margin-left: auto;
   margin-right: auto;

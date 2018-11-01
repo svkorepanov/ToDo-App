@@ -7,22 +7,30 @@
 				:todo="todo"
 			/>
 		</ul>
-		<a  class="todo-list__add-item">+</a>
+		<a href="" class="todo-list__add-item"
+			@click.prevent=""
+		>+</a>
+		<NewTask 
+			v-show="isNewTask"
+		/>
 	</div>
 </template>
 
 <script>
 import ToDoItem from './ToDoItem.vue';
+import NewTask from "./NewTask";
 
 export default {
 	components: {
-		ToDoItem
+		ToDoItem,
+		NewTask
 	},
 	data() {
 		return {
 			todos: [],
 			GET_URL: 'https://jsonplaceholder.typicode.com/users/1/todos',
-			POST_URL: 'https://jsonplaceholder.typicode.com/todos'
+			POST_URL: 'https://jsonplaceholder.typicode.com/todos',
+			isNewTask: true
 		}
 	},
   created : function () {

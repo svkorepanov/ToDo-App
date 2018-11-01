@@ -2,7 +2,7 @@
 	<li class="todo-list__item"
 		:class="{'todo-list__item--checked' : this.todo.completed}"
 	>
-		{{ todo.title }}
+		{{ todo.title | capitalize }}
 		<button type="button" class="todo-list__check"
 			@click="onCheckClick"
 			:class="{'todo-list__check--checked': this.todo.completed}"
@@ -22,7 +22,14 @@ export default {
 		onCheckClick() {
 			this.todo.completed = !this.todo.completed;
 		}
-	}
+	},
+	filters: {
+  capitalize: function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  }
+}
 }
 </script>
 
