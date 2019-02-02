@@ -1,5 +1,5 @@
 module.exports = {
-	baseUrl: '/',
+	publicPath: '/',
 	outputDir: 'build',
 	productionSourceMap: false
 }
