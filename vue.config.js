@@ -1,4 +1,5 @@
 module.exports = {
-	baseUrl: './',
-	outputDir: 'build'
+	baseUrl: '/',
+	outputDir: 'build',
+	productionSourceMap: false
 }
