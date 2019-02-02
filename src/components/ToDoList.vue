@@ -73,7 +73,7 @@ export default {
     fetch(this.GET_URL)
       .then((response) => response.json())
       .then((json) => vm.todos.push(...json))
-      .catch(error => console.log(error))
+      // .catch(error => console.log(error))
   }
 }
 </script>
