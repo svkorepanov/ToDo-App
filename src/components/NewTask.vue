@@ -68,7 +68,6 @@ export default {
 	},
 	mounted: function () {
 		this.$nextTick(function () {
-			console.dir(this.$refs.taskInput)
 			this.$refs.taskInput.focus();
 		})
 	}
